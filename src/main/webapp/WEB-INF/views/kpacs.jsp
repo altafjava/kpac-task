@@ -106,10 +106,8 @@
                 cell__html: function (event, data) {
                     const span=data.row.id
                     const kpacId=span.substring(span.indexOf('>')+1,span.lastIndexOf('<'));
-                    console.log('kpacId=',kpacId)
                     const contextPath="${pageContext.request.contextPath}";
                     const anchorTag=document.getElementById('kpac-delete-'+kpacId);
-                    console.log('anchorTag=',anchorTag);
                     anchorTag.href=contextPath+"/kpacs/delete/" + kpacId;
                 },
             },

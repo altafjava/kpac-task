@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<c:set var="req" value="${pageContext.request}" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
    
@@ -44,7 +45,6 @@
     <script>
   		const kpacData = ${knowledgePackagesJsonString};
   		const kpacSetData=${knowledgePackageSetsJsonString};
-  		
   		var select = document.getElementById("kpacIds");
 		for(index in kpacData) {
 		    select.options[select.options.length] = new Option(kpacData[index].title, kpacData[index].id);
@@ -99,23 +99,19 @@
                     const kpacSetId=span.substring(span.indexOf('>')+1,span.lastIndexOf('<'));
                     const contextPath="${pageContext.request.contextPath}";
                     const anchorTag=document.getElementById('kpac-delete-'+kpacSetId);
-                    //anchorTag.href=contextPath+"/sets/delete/" + kpacSetId;
+                    anchorTag.href=contextPath+"/sets/delete/" + kpacSetId;
                 },
             },
         }
       })
       grid.events.on("cellDblClick", function(row,column,e){
-          console.log('double click======',row)
-          //var strWindowFeatures = "location=yes,scrollbars=yes,status=yes";
-          //const span=data.row.id
-          //console.log('span=',span)
-          //const kpacSetId=span.substring(span.indexOf('>')+1,span.lastIndexOf('<'));
-          //console.log('kpacSetId=',kpacSetId)
-          //const contextPath="${pageContext.request.contextPath}";
-          //console.log('contextPath=',contextPath)
-          //var URL = "http://localhost:8080"+contextPath+"/"+kpacSetId;
-          //console.log('URL=',URL)
-          //var win = window.open(URL, "_blank", strWindowFeatures); 
+          const span=row.id
+          const kpacSetId=span.substring(span.indexOf('>')+1,span.lastIndexOf('<'));
+          const requestUrl='${req.requestURL}';
+          let url=requestUrl.substring(0,requestUrl.indexOf("WEB-INF"))
+          url=url+'set/'+kpacSetId
+          const strWindowFeatures = "location=yes,scrollbars=yes,status=yes";
+          const win = window.open(url, "_blank", strWindowFeatures); 
       });
     </script>
 </html>

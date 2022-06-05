@@ -1,8 +1,11 @@
 package com.altafjava.constant;
 
 public class AppConstant {
-	public static final String MYSQL_DRIVER_CLASS_NAME = "MYSQL_DRIVER_CLASS_NAME";
-	public static final String MYSQL_URL = "MYSQL_URL";
-	public static final String MYSQL_USERNAME = "MYSQL_USERNAME";
-	public static final String MYSQL_PASSWORD = "MYSQL_PASSWORD";
+
+	public static final String DATE_FORMAT = "dd-MM-yyyy";
+	public static final String DB_DRIVER_CLASS_NAME = "DB_DRIVER_CLASS_NAME";
+	public static final String DB_URL = "DB_URL";
+	public static final String DB_USERNAME = "DB_USERNAME";
+	public static final String DB_PASSWORD = "DB_PASSWORD";
+
 }

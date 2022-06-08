@@ -25,29 +25,33 @@ public class KpacSetController {
 	@Autowired
 	private KpacSetService kpacSetService;
 
+//	@GetMapping
+//	public String getKpacSets(Model model) throws IOException {
+//		List<KnowledgePackageSet> knowledgePackageSets = kpacSetService.getAllKpacSet();
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String knowledgePackageSetsJsonString = objectMapper.writeValueAsString(knowledgePackageSets);
+//		model.addAttribute("knowledgePackageSetsJsonString", knowledgePackageSetsJsonString);
+//		List<KnowledgePackage> knowledgePackages = kpacService.getAllKpacs();
+//		String knowledgePackagesJsonString = objectMapper.writeValueAsString(knowledgePackages);
+//		model.addAttribute("knowledgePackagesJsonString", knowledgePackagesJsonString);
+//		return "sets";
+//	}
+
 	@GetMapping
-	public String getKpacSets(Model model) throws IOException {
-		List<KnowledgePackageSet> knowledgePackageSets = kpacSetService.getAllKpacSet();
-		ObjectMapper objectMapper = new ObjectMapper();
-		String knowledgePackageSetsJsonString = objectMapper.writeValueAsString(knowledgePackageSets);
-		model.addAttribute("knowledgePackageSetsJsonString", knowledgePackageSetsJsonString);
-		List<KnowledgePackage> knowledgePackages = kpacService.getAllKpacs();
-		String knowledgePackagesJsonString = objectMapper.writeValueAsString(knowledgePackages);
-		model.addAttribute("knowledgePackagesJsonString", knowledgePackagesJsonString);
+	public String getKpacSets(Model model) {
 		return "sets";
 	}
 
 	@PostMapping
-	public String addKpacSet(@ModelAttribute("knowledgePackageSet") KnowledgePackageSet knowledgePackageSet)
-			throws IOException {
+	public String addKpacSet(@ModelAttribute("knowledgePackageSet") KnowledgePackageSet knowledgePackageSet) {
 		kpacSetService.saveKpacSet(knowledgePackageSet);
 		return "redirect:/sets";
 	}
 
-	@GetMapping("/delete/{id}")
-	public String deleteKpacSet(@PathVariable("id") int id) {
-		kpacSetService.deleteKpacSet(id);
-		return "redirect:/sets";
-	}
+//	@GetMapping("/delete/{id}")
+//	public String deleteKpacSet(@PathVariable("id") int id) {
+//		kpacSetService.deleteKpacSet(id);
+//		return "redirect:/sets";
+//	}
 
 }

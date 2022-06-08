@@ -68,3 +68,10 @@ body {
 	cursor: pointer;
 	color: red;
 }
+
+.delete-button {
+	padding: 10px;
+	cursor: pointer;
+	color: red;
+	font-weight: bold;
+}

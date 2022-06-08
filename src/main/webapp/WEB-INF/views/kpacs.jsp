@@ -8,19 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>List of all K-PACs</title>
 <script src="<c:url value="/resources/codebase/suite.js" />"></script>
-<link href="<c:url value="/resources/codebase/suite.css" />"
-	rel="stylesheet">
+<link href="<c:url value="/resources/codebase/suite.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/style.css" />" rel="stylesheet">
-<link rel="shortcut icon"
-	type='image/x-icon" href="<c:url value="/favicon.ico"/>' />
-<style type="text/css">
-.kpac_button__delete {
-	padding: 10px;
-	cursor: pointer;
-	color: red;
-	font-weight: bold;
-}
-</style>
 </head>
 <body>
 	<div class="main-container">
@@ -28,8 +17,7 @@
 			<h2>Add Knowledge Package</h2>
 			<form action="kpacs" method="post">
 				<div class="input-form">
-					<label for="title">Title</label> <input type="text" id="title"
-						name="title" placeholder="Title">
+					<label for="title">Title</label> <input type="text" id="title" name="title" placeholder="Title">
 				</div>
 				<div class="input-form">
 					<label for="description">Description</label>
@@ -93,9 +81,8 @@
                 align: "center",
                 htmlEnable: true,
                 tooltip: false,
-                template: function (text, row, col) {
-                	console.log('template fun ',text, row, col)
-                    return "<div class='kpac_button__delete'>Delete</div>"
+                template: function () {
+                    return "<div class='delete-button'>Delete</div>"
                 }
             }
 		  ],
@@ -104,31 +91,34 @@
 		  resizable: true,
 		  eventHandlers: {
 	            onclick: {
-	                "kpac_button__delete": function (event, data) {
-	                	console.log('eventHandlers onclick data= ',data)
+	                "delete-button": function (event, data) {
 	                    deleteKPac(data.row);
 	                }
 	            }
 	      }
 		});
 		
-		
 		loadGridData();
 		
 		function loadGridData() {
-			console.log('loadGridData()')
-	        dhx.ajax.get(contextPath + "/kpacs/api/kpacs").then(function (data) {
-	            let parsedData = JSON.parse(JSON.stringify(data));
-	            grid.data.parse(parsedData);
+	        dhx.ajax.get(contextPath + "/api/kpacs").then(function (data) {
+	            grid.data.parse(
+			      data.map(function (obj) {
+			        return {
+			          id: obj.id + '',
+			          title: obj.title,
+			          description: obj.description,
+			          creationDate: obj.creationDate,
+			        }
+			      })
+			    )
 	        });
 		}
 		
 		function deleteKPac(row) {
-			console.log('function deleteKPac row=',row)
 	        dhx.ajax
-	            .delete(contextPath + "/kpacs/api/kpacs/" + row.id)
+	            .delete(contextPath + "/api/kpacs/" + row.id)
 	            .then(function (data) {
-	                //displayMessage(row.title + " - Removed");
 	                loadGridData();
 	            }).catch(function (error) {
 	            	console.log('Error: ',error)
